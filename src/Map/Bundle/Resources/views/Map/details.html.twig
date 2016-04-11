@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        {#{% for res in result %}#}
+        {#<label>Id Map: </label>{{ res.idmap }}<br>#}
+        {#<label>Lat: </label>{{ res.lat }}<br>#}
+        {#<label>Lon: </label>{{ res.lon }}<br>#}
+        {#<label>Ikona: </label>{{ res.ikona }}<br>#}
+        {#<label>Nazwa: </label>{{ res.nazwa }}<br>#}
+        {#<label>Dane Sm: </label>{{ res.danesm }}<br>#}
+        {#<label>Dane Bg: </label>{{ res.danebg }}<hr>#}
+        {#<label>Id Map2: </label>{{ result2.idmap }}<br>#}
+        {#<label>Id Polska: </label>{{ res.idpolska }}<br>#}
+        {#{{ res.dane }}<br>#}
+            {#{% endfor %}#}
+        {{ nazwa.nazwa }}<br>
+        {{ nazwa.danesm }}<br>
+        {{ nazwa.danebg }}<br>
+        <hr>
+        {% for res in rest %}
+            {{ res.data }}<br>
+        {% endfor %}
+    </div>
+{% endblock %}

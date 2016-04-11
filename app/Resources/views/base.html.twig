@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Jak Zjem xD{% endblock %}</title>
+    <script src="{{ asset('js/jxs.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery2.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/pawelcss.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+    <div id="blo">
+        {% block content %}{% endblock %}
+        {#<div class="foot">#}
+            {#<p class="centt">2015 Paweł Mleczko. Designed by Twitter Bootstrap</p>#}
+        {#</div>#}
+    </div>
+    {% block script %}{% endblock %}
+</body>
+</html>

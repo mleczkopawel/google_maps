@@ -1,0 +1,13 @@
+<dane>
+    <marker lat="62.098297000000000" lon="17.3847860000" ikona="http://gmapsapi.com/ikony/szwecja.png" nazwa="Szwecja"/>
+    <marker lat="61.438767493682825" lon="7.91015625000" ikona="http://gmapsapi.com/ikony/norwegia.png" nazwa="Norwegia"/>
+    <marker lat="63.704722429433225" lon="26.9824218750" ikona="http://gmapsapi.com/ikony/finlandia.png" nazwa="Finlandia"/>
+    <marker lat="51.919438000000000" lon="19.1451360000" ikona="http://gmapsapi.com/ikony/polska.png" nazwa="Polska"/>
+    <marker lat="51.163475000000000" lon="10.4542390000" ikona="http://gmapsapi.com/ikony/niemcy.png" nazwa="Niemcy"/>
+    <marker lat="55.012934000000000" lon="-3.4468680000" ikona="http://gmapsapi.com/ikony/uk.png" nazwa="Wielka Brytania"/>
+    <marker lat="46.226699000000000" lon="2.20911900000" ikona="http://gmapsapi.com/ikony/francja.png" nazwa="Francja"/>
+    <marker lat="39.707186656826540" lon="-6.0644531250" ikona="http://gmapsapi.com/ikony/hiszpania.png" nazwa="Hiszpania"/>
+    <marker lat="41.292666000000000" lon="12.5735000000" ikona="http://gmapsapi.com/ikony/wlochy.png" nazwa="Włochy"/>
+    <marker lat="48.382802000000000" lon="31.1746100000" ikona="http://gmapsapi.com/ikony/ukraina.png" nazwa="Ukraina"/>
+    <marker lat="56.656226493502220" lon="33.6621093750" ikona="http://gmapsapi.com/ikony/rosja.png" nazwa="Rosja"/>
+</dane>

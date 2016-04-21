@@ -19,38 +19,69 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request) {
 //        Wyświetlamy index naszej aplikacji oraz formularz
-        $result = $this->getDoctrine()->getRepository('MapBundle:MapData')->findAll();
+//        $result = $this->getDoctrine()->getRepository('MapBundle:MapData')->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT d, p
+            FROM MapBundle:MapData d, MapBundle:MapPolska p'
+        );
+        $result = $query->getResult();
 
         $form = $this->createFormBuilder($result)
             ->add('nazwa', TextType::class, array('label' => 'Podaj Nazwę:', 'required' => false, 'attr'=> array('class' => 'form-control', 'style' => 'margin-bottom:15px; width:95%; padding-left:1%')))
             ->add('opis', TextType::class, array('label' => 'Podaj Opis:', 'required' => false, 'attr'=> array('class' => 'form-control', 'style' => 'margin-bottom:15px; width:95%; padding-left:1%')))
             ->add('id', TextType::class, array('label' => 'Podaj ID:', 'required' => false, 'attr'=> array('class' => 'form-control', 'style' => 'margin-bottom:15px; width:95%; padding-left:1%')))
+            ->add('cena', TextType::class, array('label' => 'Podaj Cenę:', 'required' => false, 'attr'=> array('class' => 'form-control', 'style' => 'margin-bottom:15px; width:95%; padding-left:1%')))
+            ->add('tag', TextType::class, array('label' => 'Podaj Tagi:', 'required' => false, 'attr'=> array('class' => 'form-control', 'style' => 'margin-bottom:15px; width:95%; padding-left:1%')))
             ->add('save', SubmitType::class, array('label' => 'Szukaj', 'attr' => array('class' => 'btn btn-primary', 'style' => 'width:96%')))
             ->getForm();
         $form -> handleRequest($request);
-        $datan=null;
-        $datai=null;
-        $datao=null;
+        $datan = null;
+        $datai = null;
+        $datao = null;
+        $datac = null;
+        $datat = null;
+        $dd = null;
+        $td = null;
+        $nd = null;
         if($form->isSubmitted() && $form->isValid()) {
             $namen = 'nazwa';
             $namei = 'idmap';
             $nameo = 'danesm';
+            $namec = 'cena';
+            $namet = 'tag';
+
+            $tabled = 'd';
+            $tablep = 'p';
 
             $datan = $form['nazwa']->getData();
             $datai = $form['id']->getData();
             $datao = $form['opis']->getData();
+            $datac = $form['cena']->getData();
+            $datat = $form['tag']->getData();
 
-            $this->pointaAction($namen,$datan);
-            $this->pointaAction($namei,$datai);
-            $this->pointaAction($nameo,$datao);
+            $this->pointaAction($tabled,$namen,$datan);
+            $this->pointaAction($tabled,$namei,$datai);
+            $this->pointaAction($tabled,$nameo,$datao);
+            $this->pointaAction($tablep,$namec,$datac);
+            $this->pointaAction($tabled,$namet,$datat);
 
             return $this->render('MapBundle:Map:index.html.twig', array(
                 'namen' => $namen,
                 'namei' => $namei,
                 'nameo' => $nameo,
+                'namec' => $namec,
+                'namet' => $namet,
                 'datan' => $datan,
                 'datai' => $datai,
                 'datao' => $datao,
+                'datac' => $datac,
+                'datat' => $datat,
+                'tabled' => $tabled,
+                'tablep' => $tablep,
+                'dd' => $dd,
+                'td' => $td,
+                'nd' => $nd,
                 'form' => $form->createView(),
             ));
         }
@@ -58,6 +89,11 @@ class DefaultController extends Controller
             'datan' => $datan,
             'datai' => $datai,
             'datao' => $datao,
+            'datac' => $datac,
+            'datat' => $datat,
+            'dd' => $dd,
+            'td' => $td,
+            'nd' => $nd,
             'form' => $form->createView(),
         ));
     }
@@ -70,30 +106,34 @@ class DefaultController extends Controller
         $serializer = new Serializer(array(new GetSetMethodNormalizer()), array(
             'json' => new JsonEncoder()));
         $json = $serializer->serialize($result, 'json');
-        echo $json;
-        return $this->render('MapBundle:Map:point.html.twig');
+        return $this->render('MapBundle:Map:point.html.twig', array(
+            'json' => $json,
+        ));
     }
     /**
-     * @Route("/pointa/{record}/{data}", name="jsonnn")
+     * @Route("/pointa/{table}/{record}/{data}", name="jsonnn")
      */
-    public function pointaAction($record, $data) {
+    public function pointaAction($table, $record, $data) {
 //        Pobiera dane z serwera i parsuje do JSON
 //        $record jest to zmienna która odpowiada za nazwę kolumny
 //        $data jest to zmienna która odpowiada za dane w kolumnie
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery(
-            'SELECT d, p
+        $sql =  'SELECT d, p
             FROM MapBundle:MapData d, MapBundle:MapPolska p
-            WHERE d.'.$record.'
+            WHERE '.$table.'.'.$record.'
             LIKE :data
-            AND d.idmap = p.idmap'
-        )->setParameter('data', '%'.$data.'%');
+            AND d.idmap = p.idmap';
+        $param = array(
+            'data' => '%'.$data.'%'
+        );
+        $query = $em->createQuery($sql)->setParameters($param);
         $res = $query->getResult();
         $serializer = new Serializer(array(new GetSetMethodNormalizer()), array(
             'json' => new JsonEncoder()));
         $json = $serializer->serialize($res, 'json');
-        echo $json;
-        return $this->render('MapBundle:Map:point.html.twig');
+        return $this->render('MapBundle:Map:point.html.twig', array(
+            'json' => $json,
+        ));
     }
     /**
      * @Route("/point/{idmap}", name="show")
@@ -109,3 +149,26 @@ class DefaultController extends Controller
     }
 }
 //php bin/console cache:clear --env=prod
+
+
+
+
+//jak sprawdzać wiele warunków na raz?
+//jak robić wiela zapytań do bazy na raz? o.O
+
+
+
+
+
+
+//phpMyAdmin: https://jakubnowak.com.pl/phpmyadmin/
+//nazwa_bazy: mr9nowak_pawel
+//host: localhost
+//login: mr9nowak_pawel
+//hasło:C6UcREf@X_#rUcha
+
+
+
+//login: pawel@jakubnowak.com.pl
+//hasło: rE!taS2a
+//IP: 136.243.82.67

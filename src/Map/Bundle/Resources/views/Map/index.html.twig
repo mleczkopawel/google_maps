@@ -6,12 +6,12 @@
             {{ form_start(form) }}
             {{ form_widget(form) }}
             {{ form_end(form) }}
-            <a href="app_dev.php" class="btn btn-danger bott">Czyść</a>
+            <a href="" class="btn btn-danger bott">Czyść</a>
         </div>
         <div id="right">
             <div id="map"></div>
         </div>
-        <div id="cl"></div>
+        {#<div id="cl"></div>#}
     </div>
 {% endblock %}
 
@@ -57,43 +57,30 @@
             var naa = [];
             var op = [];
             {% if datan %}
-            $.ajax({
-                type: "POST",
-                url: 'app_dev.php/pointa/{{ namen }}/{{ datan }}',
-                dataType: 'json',
-                success: function (data) {
-                    for(var i=0; i<data.length; i++) {
-                        idd[i] = data[i].idmap;
-                        laa[i] = data[i].lat;
-                        loo[i] = data[i].lon;
-                        ico[i] = data[i].ikona;
-                        naa[i] = data[i].nazwa;
-                        op[i] = data[i].danesm;
-                        marker = dodajMarker(laa[i], loo[i], ico[i], naa[i], op[i], idd[i]);
-                    }
-                }
-            });
+                {% set dd=datan %}
+                {% set td=tabled %}
+                {% set nd=namen %}
             {% elseif datai %}
-            $.ajax({
-                type: "POST",
-                url: 'app_dev.php/pointa/{{ namei }}/{{ datai }}',
-                dataType: 'json',
-                success: function (data) {
-                    for(var i=0; i<data.length; i++) {
-                        idd[i] = data[i].idmap;
-                        laa[i] = data[i].lat;
-                        loo[i] = data[i].lon;
-                        ico[i] = data[i].ikona;
-                        naa[i] = data[i].nazwa;
-                        op[i] = data[i].danesm;
-                        marker = dodajMarker(laa[i], loo[i], ico[i], naa[i], op[i], idd[i]);
-                    }
-                }
-            });
+                {% set dd=datai %}
+                {% set td=tabled %}
+                {% set nd=namei %}
             {% elseif datao %}
+                {% set dd=datao %}
+                {% set td=tabled %}
+                {% set nd=nameo %}
+            {% elseif datac %}
+                {% set dd=datac %}
+                {% set td=tablep %}
+                {% set nd=namec %}
+            {% elseif datat %}
+                {% set dd=datat %}
+                {% set td=tabled %}
+                {% set nd=namet %}
+            {% endif %}
+            {% if dd %}
             $.ajax({
                 type: "POST",
-                url: 'app_dev.php/pointa/{{ nameo }}/{{ datao }}',
+                url: 'app_dev.php/pointa/{{ td }}/{{ nd }}/{{ dd }}',
                 dataType: 'json',
                 success: function (data) {
                     for(var i=0; i<data.length; i++) {

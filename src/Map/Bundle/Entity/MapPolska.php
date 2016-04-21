@@ -44,6 +44,13 @@ class MapPolska
     private $data;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="cena", type="integer")
+     */
+    private $cena;
+
+    /**
      * @return int
      */
     public function getIdmap()
@@ -96,6 +103,25 @@ class MapPolska
         $this->data = $data;
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getCena()
+    {
+        return $this->cena;
+    }
+
+    /**
+     * @param int $cena
+     * @return MapPolska
+     */
+    public function setCena($cena)
+    {
+        $this->cena = $cena;
+        return $this;
+    }
+
 
 
 

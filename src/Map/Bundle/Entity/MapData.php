@@ -64,6 +64,13 @@ class MapData
     private $danebg;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="tag", type="string", length=255)
+     */
+    private $tag;
+
+    /**
      * @return int
      */
     public function getIdmap()
@@ -188,5 +195,25 @@ class MapData
         $this->danebg = $danebg;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @param string $tag
+     * @return MapData
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
+        return $this;
+    }
+
+
 }
 
